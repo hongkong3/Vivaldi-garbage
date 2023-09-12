@@ -50,128 +50,123 @@ SOFTWARE.
 
       body, body :is(*,*::before,*::after) {
         box-sizing: border-box;
-        padding: 0;
         margin: 0;
+        padding: 0;
       }
       input, textarea, select, option, button {
-        outline: none 0 transparent;
-        font: inherit;
-        color: inherit;
         background-color: transparent;
+        color: inherit;
+        font: inherit;
+        outline: none 0 transparent;
       }
 
       ::-webkit-scrollbar {
         background-color: var(--colBb);
         border-radius: var(--radius);
-        width: 12px;
         height: 12px;
+        width: 12px;
       }
       ::-webkit-scrollbar-track {
+        background-clip: content-box;
         background-color: var(--colBg);
         border: solid 5px transparent;
-        background-clip: content-box;
         box-shadow: inset 1px 1px #0002, inset -1px -1px #fff2;
       }
       ::-webkit-scrollbar-thumb {
-        background-color: var(--colFb);
-        border-radius: var(--radius);
-        border: solid 1px transparent;
         background-clip: content-box;
-        box-shadow: inset 0 0 1px #777;
-        background-image: linear-gradient(#fff1, #fff1 1px, #0001 1px, #0001 2px, #0000 2px,
-          #fff0 calc(50% - 2px), #fff1 calc(50% - 2px), #fff1 calc(50% - 1px), #0001 calc(50% - 1px), #0001 50%, #0000 50%,
-          #fff0 calc(100% - 2px), #fff1 calc(100% - 2px), #fff1 calc(100% - 1px), #0001 calc(100% - 1px), #0001 100%);
-        background-size: 6px 20px;
+        background-color: var(--colFb);
+        background-image: linear-gradient(#fff1,#fff1 1px,#0001 1px,#0001 2px,#0000 2px,
+          #fff0 calc(50% - 2px),#fff1 calc(50% - 2px),#fff1 calc(50% - 1px),#0001 calc(50% - 1px),#0001 50%,#0000 50%,
+          #fff0 calc(100% - 2px),#fff1 calc(100% - 2px),#fff1 calc(100% - 1px),#0001 calc(100% - 1px),#0001 100%);
         background-position: 2px calc(50% - 10px);
         background-repeat: no-repeat;
+        background-size: 6px 20px;
+        border: solid 1px transparent;
+        border-radius: var(--radius);
+        box-shadow: inset 0 0 1px #777;
       }
       #note::-webkit-scrollbar-thumb:hover {
         background-color: var(--colHb);
       }
 
       article {
+        background-color: var(--colBg);
+        color: var(--colFg);
         font-size: 1rem;
         line-height: 1.5;
-        color: var(--colFg);
-        background-color: var(--colBg);
 
         display: flex;
         flex-flow: column nowrap;
-        width: 100vw;
         height: 100vh;
         overflow: hidden;
         position: relative;
+        width: 100vw;
       }
       header {
         background-color: var(--colAc);
-        padding: 4px;
         display: flex;
         justify-content: center;
+        padding: 4px;
       }
       button, #iptURL {
-        color: var(--colFg);
         background-color: var(--colBg);
         border: solid 1px transparent;
+        color: var(--colFg);
         height: 24px;
         line-height: 1;
         padding: 0 .5em;
       }
       button {
+        clip-path: path('m 0,0 13.855469,24 12.2895,0L 40.000438,0 33.072703,0 22.680137,17.998053 12.289511,0Z');
         cursor: help;
         width: 40px;
-        clip-path: path('m 0,0 13.855469,24 12.2895,0L 40.000438,0 33.072703,0 22.680137,17.998053 12.289511,0Z');
       }
       #iptURL {
-        transform: skewX(-30deg);
-        min-width: 40vw;
         caret-color: var(--colAc);
+        min-width: 40vw;
+        transform: skewX(-30deg);
       }
       #iptURL::placeholder {
+        opacity: .6;
         text-align: center;
         transform: scaleX(1.62);
-        opacity: .6;
       }
       button:hover, button:focus, #iptURL:hover {
-        color: var(--colBg);
         background-color: var(--colFg);
+        color: var(--colBg);
       }
       .content {
-        flex-basis: 100%;
-        display: flex;
-        flex-flow: column nowrap;
         align-items: center;
+        display: flex;
+        flex-basis: 100%;
+        flex-flow: column nowrap;
         padding: 4em 1em;
 
         --cA: #89908e08;
         --cT: transparent;
-        background-image: repeating-linear-gradient(120deg,var(--cT)16px,var(--cA)16px,var(--cA)21px,var(--cT)21px,var(--cT)37px),
-          repeating-linear-gradient(60deg,var(--cT)16px,var(--cA)16px,var(--cA)21px,var(--cT)21px,var(--cT)37px);
+        background-image: repeating-linear-gradient(120deg,var(--cT)16px,var(--cA)16px,var(--cA)21px,var(--cT)21px,var(--cT)37px), repeating-linear-gradient(60deg,var(--cT)16px,var(--cA)16px,var(--cA)21px,var(--cT)21px,var(--cT)37px);
         background-size: 100% 60px;
       }
       
       #note {
-        height: 100%;
-        overflow: hidden auto;
-        padding: 0 .5em;
-        max-height: calc(100vh - 10em);
-        min-width: max(20%, 120px);
-        max-width: calc(100% - 3em);
-        font-family: monospace;
-        outline: dashed 1px transparent;
-        outline-offset: .5em;
         border-radius: var(--radius);
         caret-color: var(--colAc);
+        font-family: monospace;
+        height: 100%;
+        max-height: calc(100vh - 10em);
+        max-width: calc(100% - 3em);
+        min-width: max(20%, 120px);
+        outline: dashed 1px transparent;
+        outline-offset: .5em;
+        overflow: hidden auto;
+        padding: 0 .5em;
       }
       #note:focus-within {
         outline-color: var(--colAc);
       }
 
-      cite {
-        font-size: 1rem;
-      }
-      .hidden, .data {
-        display: none;
-      }
+      cite {font-size: 1rem}
+      .hidden, .data {display: none}
     --></style>
   </head>
   <body>
@@ -189,47 +184,47 @@ SOFTWARE.
 
     <pre class="hint data" lang="en">
       # Instant Web Panel <cite>for Vivaldi</cite>
-      <br />
+      <br>
       ## USAGE:
       1. Set up this page to Web Panel
       2. Display this page in the Web Panel
       3. Enter the URL of the Web Page of you wish to view in the input field at the top of screen.
       4. When press Enter or move Focus to display the Web Page
-      <br />
+      <br>
       That is all.
-      <br /><br />
+      <br><br>
       ## Return to original page (this screen):
       If you want to return manually, you can use the "Home" button in the Web-panel Navigation.
-      <br />
+      <br>
       Since it does not exist as Command, the following Command-chain is used instead.
       &nbsp;&nbsp;1. Focus Panel
       &nbsp;&nbsp;2. Toggle Current Panel
       &nbsp;&nbsp;3. Panel
-      <br />
+      <br>
       This command terminates the panel process, so this panel also returns to its original state.
-      <br /><br /><br />
+      <br><br><br>
       (This part can also be used as a note)
     </pre><pre class="hint data" lang="ja">
       # Instant Web-Panel <cite>for Vivaldi</cite>
-      <br />
+      <br>
       ## 使い方:
       1. このページをVivaldiのウェブパネルに追加します
       2. ウェブパネルとしてこのページを表示します
       3. 画面上部の入力欄に表示したいウェブページのURLを入力します
       4. Enterキーかフォーカス移動で、そのページが表示されます
-      <br />
+      <br>
       以上です。
-      <br /><br />
+      <br><br>
       ## 元のページ(この画面)に戻す:
       手動ならウェブパネルナビゲーションの「ホームへ移動」ボタンで戻れます。
-      <br />
+      <br>
       コマンドとしては存在しないので、以下のようなコマンドチェインを利用します。
       &nbsp;&nbsp;1. パネルにフォーカス
       &nbsp;&nbsp;2. 現在のパネルを切り替え
       &nbsp;&nbsp;3. パネルを表示/非表示
-      <br />
+      <br>
       副次的にパネルのプロセスを終了させるコマンドなので、このパネルも元に戻ります。
-      <br /><br /><br />
+      <br><br><br>
       (この部分はメモとして使えます)
     </pre>
     <script type="text/javascript"><!--
