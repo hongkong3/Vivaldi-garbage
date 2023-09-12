@@ -1,4 +1,5 @@
 <!----------------------------------------------------------------------------
+Instant Web Panel for Vivaldi  (ver. 0.8)
 [MITライセンス]: ソースコードの利用/改変/再配布等、ご自由にどうぞ。
 ------------------------------------------------------------------------------
 MIT License
@@ -197,6 +198,16 @@ SOFTWARE.
       <br />
       That is all.
       <br /><br />
+      ## Return to original page (this screen):
+      If you want to return manually, you can use the "Home" button in the Web-panel Navigation.
+      <br />
+      Since it does not exist as Command, the following Command-chain is used instead.
+      &nbsp;&nbsp;1. Focus Panel
+      &nbsp;&nbsp;2. Toggle Current Panel
+      &nbsp;&nbsp;3. Panel
+      <br />
+      This command terminates the panel process, so this panel also returns to its original state.
+      <br /><br /><br />
       (This part can also be used as a note)
     </pre><pre class="hint data" lang="ja">
       # Instant Web-Panel <cite>for Vivaldi</cite>
@@ -229,16 +240,17 @@ SOFTWARE.
 
       const cKEY = 'InsTanTweBpaNel4VivAldI';
 
+      _qs('#iptURL').addEventListener('change',(e)=>{
+        let c=e.srcElement.value.replace(/^\s+|\s+$/g,'');
+        if(c.match(/^(https?|file)\:\/\/\/?\w+/i)){window.open(c,'_self')}
+        return false;
+      },false);
+
       _qs('#btnHint').addEventListener('click',(b)=>{
         let e=_qs('#note'); e.classList.toggle('hidden');
         if(!e.classList.contains('hidden')){
           e.innerHTML=formatHint(_qs('.data.hint[lang="'+(checkLang('ja')?'ja':'en')+'"]').innerHTML);
         }
-      });
-      _qs('#iptURL').addEventListener('change',(e)=>{
-        let c=e.srcElement.value.replace(/^\s+|\s+$/g,'');
-        if(c.match(/^(https?|file)\:\/\/\/?\w+/i)){window.open(c,'_self')}
-        return false;
       },false);
 
       window.addEventListener('beforeunload',(e)=>{
