@@ -1,0 +1,257 @@
+<!----------------------------------------------------------------------------
+[MITライセンス]: ソースコードの利用/改変/再配布等、ご自由にどうぞ。
+------------------------------------------------------------------------------
+MIT License
+
+Copyright (c) 2023 HongKong
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+----------------------------------------------------------------------------->
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Instant WEB Panel for Vivaldi</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20viewBox%3D%226%206%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cstyle%3E%3Aroot%7B--col%3A%234b70f0%7D%40media(prefers-color-scheme%3Adark)%7B%3Aroot%7B--col%3A%23f23b3b%7D%7D%3C%2Fstyle%3E%3Cpath%20fill%3D%22var(--col)%22%20d%3D%22M8.25%2C7C7.0162455%2C7%206%2C8.0162455%206%2C9.25v9.5C6%2C19.983739%207.0162274%2C21%208.25%2C21h11.5C20.983757%2C21%2022%2C19.983757%2022%2C18.75V9.25C22%2C8.0162274%2020.983739%2C7%2019.75%2C7Zm%205.25%2C1.5h6.25c0.423058%2C0%200.75%2C0.3269159%200.75%2C0.75v9.5c0%2C0.42304%20-0.32696%2C0.75%20-0.75%2C0.75H13.5v-5.882812l-2.546875%2C4.416015c-0.10627%2C0.198547%20-0.267135%2C0.37134%20-0.476563%2C0.492188%20-0.5981328%2C0.344592%20-1.3623658%2C0.139107%20-1.7070308%2C-0.458985L7.25%2C15.435547v-5L10.425781%2C15.9375%2013.5%2C10.613281Z%22%2F%3E%3C%2Fsvg%3E" />
+    <style><!--
+      :root {
+        --colBg: #fff;
+        --colFg: #444;
+        --colAc: #4b70f0;
+        --radius: .3rem;
+        --colFb: color-mix(in srgb, var(--colBg)70%, #777);
+        --colBb: color-mix(in srgb, var(--colBg)90%, #777);
+        --colHb: color-mix(in srgb, var(--colBg)50%, #777);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root{
+          --colBg: #222;
+          --colFg: #ccc;
+          --colAc: #f23b3b;
+        }
+      }
+
+      body, body :is(*,*::before,*::after) {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      input, textarea, select, option, button {
+        outline: none 0 transparent;
+        font: inherit;
+        color: inherit;
+        background-color: transparent;
+      }
+
+      ::-webkit-scrollbar {
+        background-color: var(--colBb);
+        border-radius: var(--radius);
+        width: 12px;
+        height: 12px;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: var(--colBg);
+        border: solid 5px transparent;
+        background-clip: content-box;
+        box-shadow: inset 1px 1px #0002, inset -1px -1px #fff2;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: var(--colFb);
+        border-radius: var(--radius);
+        border: solid 1px transparent;
+        background-clip: content-box;
+        box-shadow: inset 0 0 1px #777;
+        background-image: linear-gradient(#fff1, #fff1 1px, #0001 1px, #0001 2px, #0000 2px,
+          #fff0 calc(50% - 2px), #fff1 calc(50% - 2px), #fff1 calc(50% - 1px), #0001 calc(50% - 1px), #0001 50%, #0000 50%,
+          #fff0 calc(100% - 2px), #fff1 calc(100% - 2px), #fff1 calc(100% - 1px), #0001 calc(100% - 1px), #0001 100%);
+        background-size: 6px 20px;
+        background-position: 2px calc(50% - 10px);
+        background-repeat: no-repeat;
+      }
+      #note::-webkit-scrollbar-thumb:hover {
+        background-color: var(--colHb);
+      }
+
+      article {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: var(--colFg);
+        background-color: var(--colBg);
+
+        display: flex;
+        flex-flow: column nowrap;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
+      header {
+        background-color: var(--colAc);
+        padding: 4px;
+        display: flex;
+        justify-content: center;
+      }
+      button, #iptURL {
+        color: var(--colFg);
+        background-color: var(--colBg);
+        border: solid 1px transparent;
+        height: 24px;
+        line-height: 1;
+        padding: 0 .5em;
+      }
+      button {
+        cursor: help;
+        width: 40px;
+        clip-path: path('m 0,0 13.855469,24 12.2895,0L 40.000438,0 33.072703,0 22.680137,17.998053 12.289511,0Z');
+      }
+      #iptURL {
+        transform: skewX(-30deg);
+        min-width: 40vw;
+        caret-color: var(--colAc);
+      }
+      #iptURL::placeholder {
+        text-align: center;
+        transform: scaleX(1.62);
+        opacity: .6;
+      }
+      button:hover, button:focus, #iptURL:hover {
+        color: var(--colBg);
+        background-color: var(--colFg);
+      }
+      .content {
+        flex-basis: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        padding: 4em 1em;
+
+        --cA: #89908e08;
+        --cT: transparent;
+        background-image: repeating-linear-gradient(120deg,var(--cT)16px,var(--cA)16px,var(--cA)21px,var(--cT)21px,var(--cT)37px),
+          repeating-linear-gradient(60deg,var(--cT)16px,var(--cA)16px,var(--cA)21px,var(--cT)21px,var(--cT)37px);
+        background-size: 100% 60px;
+      }
+      
+      #note {
+        height: 100%;
+        overflow: hidden auto;
+        padding: 0 .5em;
+        max-height: calc(100vh - 10em);
+        min-width: max(20%, 120px);
+        max-width: calc(100% - 3em);
+        font-family: monospace;
+        outline: dashed 1px transparent;
+        outline-offset: .5em;
+        border-radius: var(--radius);
+        caret-color: var(--colAc);
+      }
+      #note:focus-within {
+        outline-color: var(--colAc);
+      }
+
+      cite {
+        font-size: 1rem;
+      }
+      .hidden, .data {
+        display: none;
+      }
+    --></style>
+  </head>
+  <body>
+    <article>
+      <header>
+        <button id="btnHint" tabindex="2" title="show hint"></button>
+        <input id="iptURL" type="text" tabindex="0" autofocus autocomplete="off" title="please input target pages URL" placeholder="input URL"/>
+      </header>
+      <section class="content">
+        <div id="note" tabindex="1" contenteditable="true"></div>
+        <!-- <input type="file" class="hidden" /> -->
+        <!-- <iframe frameborder="0" width="100%" height="100%" src=""></iframe> -->
+      </section>
+    </article>
+
+    <pre class="hint data" lang="en">
+      # Instant Web Panel <cite>for Vivaldi</cite>
+      <br />
+      ## USAGE:
+      1. Set up this page to Web Panel
+      2. Display this page in the Web Panel
+      3. Enter the URL of the Web Page of you wish to view in the input field at the top of screen.
+      4. When press Enter or move Focus to display the Web Page
+      <br />
+      That is all.
+      <br /><br />
+      (This part can also be used as a note)
+    </pre><pre class="hint data" lang="ja">
+      # Instant Web-Panel <cite>for Vivaldi</cite>
+      <br />
+      ## 使い方:
+      1. このページをVivaldiのウェブパネルに追加します
+      2. ウェブパネルとしてこのページを表示します
+      3. 画面上部の入力欄に表示したいウェブページのURLを入力します
+      4. Enterキーかフォーカス移動で、そのページが表示されます
+      <br />
+      以上です。
+      <br /><br />
+      ## 元のページ(この画面)に戻す:
+      手動ならウェブパネルナビゲーションの「ホームへ移動」ボタンで戻れます。
+      <br />
+      コマンドとしては存在しないので、以下のようなコマンドチェインを利用します。
+      &nbsp;&nbsp;1. パネルにフォーカス
+      &nbsp;&nbsp;2. 現在のパネルを切り替え
+      &nbsp;&nbsp;3. パネルを表示/非表示
+      <br />
+      副次的にパネルのプロセスを終了させるコマンドなので、このパネルも元に戻ります。
+      <br /><br /><br />
+      (この部分はメモとして使えます)
+    </pre>
+    <script type="text/javascript"><!--
+      const D=document, _qs=D.querySelector.bind(D), _qsa=D.querySelectorAll.bind(D), log=console.log;
+
+      const checkLang = (v)=>(','+(navigator.languages||navigator.language||navigator.userLanguage||navigator.browserLanguage).toString().toLowerCase()+',').indexOf(','+v.toLowerCase()+',')>=0;
+      const formatHint = (v,i)=>v.split(/(^\s+|\r|\n)+\s*/).map(s=>s.match(/^\<.+?\>$/m)?s:s.match(/^\s*(\#+)\s+/m)?'<h'+(i=RegExp.$1.length+1)+'>'+s+'</h'+i+'>':s.match(/^\s*$/m)?'':'<p>'+s+'</p>').join('');
+
+      const cKEY = 'InsTanTweBpaNel4VivAldI';
+
+      _qs('#btnHint').addEventListener('click',(b)=>{
+        let e=_qs('#note'); e.classList.toggle('hidden');
+        if(!e.classList.contains('hidden')){
+          e.innerHTML=formatHint(_qs('.data.hint[lang="'+(checkLang('ja')?'ja':'en')+'"]').innerHTML);
+        }
+      });
+      _qs('#iptURL').addEventListener('change',(e)=>{
+        let c=e.srcElement.value.replace(/^\s+|\s+$/g,'');
+        if(c.match(/^(https?|file)\:\/\/\/?\w+/i)){window.open(c,'_self')}
+        return false;
+      },false);
+
+      window.addEventListener('beforeunload',(e)=>{
+        let note=_qs('#note'), f=!note.classList.contains('hidden');
+        localStorage[cKEY]=(f?1:0)+(note.innerHTML.replace(/(\<\/\w+\>[\x0a\x0d]+\s+)/gm,'$1')||'');
+      },false);
+
+      do{//Initialize
+        let s=localStorage[cKEY]||'', f=(s.charAt(0)||'')==1, e=_qs('#note');
+        if(!f){e.classList.add('hidden'); s=''}
+        e.innerHTML=(s=s.substr(1)+'')!='' ? s : formatHint(_qs('.data.hint[lang="'+(checkLang('ja')?'ja':'en')+'"]').innerHTML);
+      }while(0);
+
+    --></script>
+  </body>
+</html>
