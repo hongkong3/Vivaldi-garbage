@@ -6,6 +6,5 @@
 
 This repository is a private warehouse of utilities for the [Vivaldi Browser][vivaldi].
 
-<a href="https://github.com/hongkong3/MyStorage-vivaldi/raw/master/src/instantWebPanel.html" target="new" download>てすと</a>
 
 [vivaldi]: https://vivaldi.com/ "Powerful. Personal. Private."
