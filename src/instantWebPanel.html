@@ -1,5 +1,5 @@
 <!----------------------------------------------------------------------------
-Instant Web Panel for Vivaldi - 0.8
+Instant Web Panel for Vivaldi - 0.82
 [MITライセンス]: ソースコードの利用/改変/再配布等、ご自由にどうぞ。
 ------------------------------------------------------------------------------
 MIT License
@@ -55,8 +55,7 @@ SOFTWARE.
       }
       input, textarea, select, option, button {
         background-color: transparent;
-        color: inherit;
-        font: inherit;
+        color: inherit; font: inherit;
         outline: none 0 transparent;
       }
 
@@ -89,25 +88,6 @@ SOFTWARE.
         background-color: var(--colHb);
       }
 
-      article {
-        background-color: var(--colBg);
-        color: var(--colFg);
-        font-size: 1rem;
-        line-height: 1.5;
-
-        display: flex;
-        flex-flow: column nowrap;
-        height: 100vh;
-        overflow: hidden;
-        position: relative;
-        width: 100vw;
-      }
-      header {
-        background-color: var(--colAc);
-        display: flex;
-        justify-content: center;
-        padding: 4px;
-      }
       button, #iptURL {
         background-color: var(--colBg);
         border: solid 1px transparent;
@@ -116,16 +96,6 @@ SOFTWARE.
         line-height: 1;
         padding: 0 .5em;
         transition: color .1s, background .1s
-      }
-      button {
-        clip-path: path('m 0,0 13.855469,24 12.2895,0L 40.000438,0 33.072703,0 22.680137,17.998053 12.289511,0Z');
-        cursor: help;
-        width: 40px;
-      }
-      #iptURL {
-        caret-color: var(--colAc);
-        min-width: 40vw;
-        transform: skewX(-30deg);
       }
       #iptURL::placeholder {
         opacity: .6;
@@ -150,19 +120,6 @@ SOFTWARE.
         background-size: 100% 60px;
       }
       
-      #note {
-        border-radius: var(--radius);
-        caret-color: var(--colAc);
-        font-family: monospace;
-        height: 100%;
-        max-height: calc(100vh - 10em);
-        max-width: calc(100% - 3em);
-        min-width: max(20%, 120px);
-        outline: dashed 1px transparent;
-        outline-offset: .5em;
-        overflow: hidden auto;
-        padding: 0 .5em;
-      }
       #note:focus-within {
         outline-color: var(--colAc);
       }
@@ -172,13 +129,13 @@ SOFTWARE.
     --></style>
   </head>
   <body>
-    <article>
-      <header>
-        <button id="btnHint" tabindex="2" title="show hint"></button>
-        <input id="iptURL" type="text" tabindex="0" autofocus autocomplete="off" title="please input target pages URL" placeholder="input URL"/>
+    <article style="background-color: var(--colBg); color: var(--colFg); font-size: 1rem; line-height: 1.5; display: flex; flex-flow: column nowrap; height: 100vh; overflow: hidden; position: relative; width: 100vw;">
+      <header style="background-color: var(--colAc); display: flex; justify-content: center; padding: 4px;">
+        <button id="btnHint" tabindex="2" title="show hint" style="clip-path: path('m 0,0 13.855469,24 12.2895,0L 40.000438,0 33.072703,0 22.680137,17.998053 12.289511,0Z'); cursor: help; width: 40px;"></button>
+        <input id="iptURL" type="text" tabindex="0" autofocus autocomplete="off" title="please input target pages URL" placeholder="input URL" style="caret-color: var(--colAc); min-width: 40vw; transform: skewX(-30deg);"/>
       </header>
       <section class="content">
-        <div id="note" tabindex="1" contenteditable="true"></div>
+        <div id="note" tabindex="1" contenteditable="true" style="border-radius: var(--radius); caret-color: var(--colAc); font-family: monospace; height: 100%; max-height: calc(100vh - 10em); max-width: calc(100% - 3em); min-width: max(20%, 120px); outline: dashed 1px transparent; outline-offset: .5em; overflow: hidden auto; padding: 0 .5em;"></div>
       </section>
     </article>
 
@@ -230,7 +187,7 @@ SOFTWARE.
     <script type="text/javascript"><!--
       const D=document, _qs=D.querySelector.bind(D), _qsa=D.querySelectorAll.bind(D), log=console.log;
 
-      const checkLang = (v)=>(','+(navigator.languages||navigator.language||navigator.userLanguage||navigator.browserLanguage).toString().toLowerCase()+',').indexOf(','+v.toLowerCase()+',')>=0;
+      const checkLang= (v)=>(','+(navigator.language||navigator.userLanguage||navigator.browserLanguage).toString().toLowerCase()+',').indexOf(','+v.toLowerCase()+',')>=0;
       const formatHint = (v,i)=>v.split(/(^\s+|\r|\n)+\s*/).map(s=>s.match(/^\<.+?\>$/m)?s:s.match(/^\s*(\#+)\s+/m)?'<h'+(i=RegExp.$1.length+1)+'>'+s+'</h'+i+'>':s.match(/^\s*$/m)?'':'<p>'+s+'</p>').join('');
 
       const cKEY = 'InsTanTweBpaNel4VivAldI';
@@ -239,19 +196,23 @@ SOFTWARE.
         let c=e.srcElement.value.replace(/^\s+|\s+$/g,'');
         if(c.match(/^(https?|file)\:\/\/\/?\w+/i)){window.open(c,'_self')}
         return false;
-      },false);
+      });
+      _qs('#iptURL').addEventListener('focus',e=>{ //auto select
+        let t=e.srcElement; t.setSelectionRange(0,t.value.length);
+        return true;
+      });
 
       _qs('#btnHint').addEventListener('click',()=>{
         let e=_qs('#note'); e.classList.toggle('hidden');
         if(!e.classList.contains('hidden')){
           e.innerHTML=formatHint(_qs('.data.hint[lang="'+(checkLang('ja')?'ja':'en')+'"]').innerHTML);
         }
-      },false);
+      });
 
       window.addEventListener('beforeunload',e=>{
         let note=_qs('#note'), f=!note.classList.contains('hidden');
         localStorage[cKEY]=(f?1:0)+(note.innerHTML.replace(/(\<\/\w+\>[\x0a\x0d]+\s+)/gm,'$1')||'');
-      },false);
+      });
 
       do{//Initialize
         let s=localStorage[cKEY]||'', f=(s.charAt(0)||'')==1, e=_qs('#note');
