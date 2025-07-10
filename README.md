@@ -12,7 +12,7 @@
 
 - - - - - - - -
 ### ■ [インスタントWebパネル](/instantWebPanel)  
-[instantWenPanel_v2\.21\.zip](https://github.com/hongkong3/MyStorage-vivaldi/releases/download/iwp-v2.21/instantWebPanel_v221.zip)&nbsp;
+[instantWenPanel_v221.zip](https://github.com/hongkong3/MyStorage-vivaldi/releases/download/iwp-v2.21/instantWebPanel_v221.zip)&nbsp;
 [![REQUIRE: Vivaldi](https://img.shields.io/static/v1?label=vivaldi&message=utils&color=ef3939&logo=vivaldi)][vivaldi]&nbsp;
 [![CC0 1.0Universal](https://img.shields.io/static/v1?label=license&message=CC0&color=28c)](https://creativecommons.org/publicdomain/zero/1.0/ "CC0 1.0Universal")&nbsp;
 ![version 2.21](https://img.shields.io/static/v1?label=version&message=2.21&color=2a2 "version: 2.21")&nbsp;
