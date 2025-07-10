@@ -5,6 +5,7 @@
 <br/>
 
 これは個人的に作った[Vivaldiブラウザ][vivaldi]用のモノをまとめたリポジトリです。
+<br/>
 
 [vivaldi]: https://vivaldi.com/ "Powerful. Personal. Private."
 
