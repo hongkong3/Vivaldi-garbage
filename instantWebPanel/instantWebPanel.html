@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<!---------------------------------------------------------
+# Instant Web Panel for Vivaldi - 2.21
+  ウェブページを一時的にWebパネルに表示するためのHTMLファイルです
+  ローカルのHTMLファイルをWebパネルとして登録し、一時表示用の容れ物として使うような感じです
+
+
+## 使い方
+  1. ウェブパネルとしてこのHTMLファイルを登録し表示します
+  2. 画面上部の入力欄に目的のページのURLを入力します
+  3. Enterキーやフォーカス移動でそのページが表示されます
+
+### このページに戻す
+  ウェブパネルナビゲーションの "ホームへ移動" ボタン
+  ※以前は出来たサイドバー出し入れによる初期化はできなくなってます
+
+
+## リンクを追加
+  "LINK" 部分にマウスカーソルを乗せると出る [+] ボタンで追加
+  使用頻度の低いウェブパネルをまとめる事ができます
+
+  - `URL address`:  リンク先のURL (必須)
+  - `link name`:    リンクの表示名
+                    先頭に `--- `が在ればリンクの上に区切り線を追加
+                    末尾に `---` が在ればリンクの下に区切り線を追加
+  - `icon image`:   ファビコン用画像, 自動取得とかは無理
+                    Base64やencodeURIをデータURIとして指定も可能
+                    例: `data:image/png;base64,***`
+
+### リンクのインポート・エクスポート
+  入力欄に`@import`でインポート, `@export`でエクスポートできます
+  "instantWebPanel_link.csv" として出力します
+
+
+## メモ
+  ページ下部はメモとして使えます
+
+
+> このソフトウェアはCC0 1.0 (パブリックドメイン宣言) で公開されています。
+> 自由にご利用いただけますが無保証です。
+> 詳細は https://creativecommons.org/publicdomain/zero/1.0/ をご覧ください。
+-----------------------------------------------------------
+## USAGE
+1. display this HTML as a web-panel
+2. enter the target page URL in the input field
+3. when the focus is removed, the page is displayed
+
+## Return to this page
+press the "Home" button.
+
+## Add a Link
+Add a Link by pressing the [+] button in the "LINK" section.
+For summarizing infrequently used Web Panels.
+
+- `URL address`:  URL of the Link (required)
+- `link name`:    display caption of the Link
+                  if there is `---` at the start, Separator will be added above Link
+                  if there is `---` at the end, Separator will be added below Link
+- `icon image`:   Favicon image, automatic acquisition is not possible...
+                  Base64 or encodeURI can also be specified as a Data URI
+                  ex) `data:image/png;base64,***`
+
+>  ### Importing and Exporting Links
+>  To import the `@import`, to export input the `@export`.
+>  Output as "instantWebPanel_link.csv".
+
+## Notes
+The bottom of the page can be used as Notes.
+
+---------------------------------------------------------->
+
+<html lang="ja" data-recent="16">
+  <head>
+    <meta charset="utf-8" />
+    <title>Instant Web Panel</title>
+    <meta name="theme-color" content="#4b70f0" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ef3939" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill%3D%22%23ef3939%22%20d%3D%22M2.25%2C1C1.016%2C1%200%2C2.016%200%2C3.25v9.5C0%2C13.984%201.016%2C15%202.25%2C15h11.5C14.984%2C15%2016%2C13.984%2016%2C12.75V3.25C16%2C2.016%2014.984%2C1%2013.75%2C1Z%20M6%2C2.5h7.75c0.423%2C0%200.75%2C0.327%200.75%2C0.75v9.5c0%2C0.423%20-0.327%2C0.75%20-0.75%2C0.75H6V12.75L1.256%2C8.002%206%2C3.25Z%20M7.5%2C3.826%203.365%2C8.002%207.5%2C12.175V9.925H10.75V6.076H7.5Z%22%2F%3E%3C%2Fsvg%3E"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style><!--
+      :root {
+        font-size: 1rem;
+        contain: layout;
+
+        --c_fg: #555;
+        --c_bg: #eee;
+        --c_ac: #ef3939;
+        --c_fd: color-mix(in hsl, #777 25%, var(--c_bg));
+
+        --i_arrow:  polygon(0%50%,50%0%,50%26.95%,100%26.95%,100%73.05%,50%73.05%,50%100%,0%50%);
+        --i_add:    polygon(6.25%39.48%,6.25%60.52%,39.48%60.52%,39.48%93.75%,60.52%93.75%,60.52%60.52%,93.75%60.52%,93.75%39.48%,60.52%39.48%,60.52%6.25%,39.48%6.25%,39.48%39.48%,6.25%39.48%);
+        --i_edit:   polygon(65.92%3.13%,17.64%51.41%,51.72%85.49%,100%37.21%,65.92%3.13%,12.67%71.23%,6.25%96.88%,31.89%90.46%,12.67%71.23%);
+        --i_up:     polygon(8.49%60.55%,23.38%75.42%,50%48.81%,76.63%75.42%,91.51%60.55%,50%19.04%,8.49%60.55%);
+        --i_remove: polygon(9.38%39.48%,9.38%60.52%,90.63%60.52%,90.63%39.48%,9.38%39.48%);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --c_fg: #ccc;
+          --c_bg: #222;
+          --c_ac: #4d70f0;
+        }
+      }
+      @media only screen and (max-width: 767px) {
+        :root {font-size: 0.875rem}
+      }
+
+      *, *::before, *::after {
+        padding: 0; margin: 0; outline: none;
+        text-decoration: none; box-sizing: border-box;
+      }
+
+      body {
+        color: var(--c_fg); background-color: var(--c_bg);
+        width: 100vw; height: 100vh; line-height: 1.6;
+      }
+      header {
+        height: 4rem; background-color: var(--c_fd); box-shadow: inset 0 -1px 1px #fff1, 0 1px 3px #0003;
+        & > div {
+          width: min(600px, 82%); height: 2.4rem; border-radius: .4rem;
+          background-color: var(--c_bg); transition: .2s;
+          & > input[type="text"] {
+            flex: 999 1; border: none; color: #ccc; background-color: transparent;
+            font-size: 1rem; padding: .4rem .4rem .4rem .8rem;
+          }
+          & > a.btn.url {
+            flex: 0 0 2.4rem; color: var(--c_fg); background-color: transparent; height: 100%; border-radius: 0;
+            &::before {clip-path: var(--i_arrow)}
+          }
+          &:is(:hover, :focus-within) > a.btn.url {background-color: #7782}
+          & > a.btn.url:is(:focus, :hover) {color: var(--c_bg); background-color: var(--c_ac)}
+        }
+      }
+
+      main {
+        padding: 1rem 2rem; max-height: max(100% - 4rem, 0px);
+        overflow: auto; scroll-padding: 2lh 1rem;
+      }
+
+      #sctLink {
+        min-width: 38%; max-width: 100%; padding: 0 0 1rem; margin: 0 0 1rem; border-bottom: solid 2px #7782;
+        & > div {
+          display: flex; align-items: center; justify-content: end; transition: .2s;
+          & .caption {
+            color: var(--c_fd); font-size: 1.4em; font-weight: 900; letter-spacing: 1px;
+            display: inline-block; flex: 999; transform-origin: left; transform: scale(1.62, 1);
+          }
+          & .count {color: var(--c_fd); font-weight: 900; padding: 0 .5em}
+          &:not(:hover) > a.btn {opacity: 0}
+        }
+        & > ul {
+          align-items: normal; gap: .3rem; margin-top: .3rem;
+          & > li {
+            color: var(--c_fg); display: flex; align-items: center; gap: 4px; transition: .2s;
+            &:is(:hover, :focus-within) {color: var(--c_ac)}
+            & > .icon, & > svg {width: 1.5em; height: 1.5em; filter: drop-shadow(0 1px 2px #0003)}
+            & > .icon {background-size: contain; background-position: center; background-repeat: no-repeat}
+            & > a.link {
+              flex: 999; line-height: 1.2; color: inherit; border: solid 2px transparent;
+              text-wrap: nowrap; overflow: hidden; text-overflow: ellipsis;
+            }
+            &:hover > a.link, & > a.link:focus {border-bottom-color: var(--c_ac)}
+            &:not(:hover):not(:focus-within) > a.btn {opacity: 0}
+          }
+          & > hr {border: none 0; border-bottom: solid 1px #7782; margin: .3rem .6rem}
+        }
+      }
+      a.btn {
+        display: flex; align-items: center; justify-content: center;
+        width: 1.4em; height: 1.4em; border-radius: .2rem;
+        color: var(--c_bg); background-color: var(--c_fd); cursor: pointer; opacity: .8;
+        transition: inherit;
+        &:hover {background-color: var(--c_ac)}
+        &::before {content: ''; background-color: currentColor; width: 1rem; height: 1rem; clip-path: var(--i_add)}
+        &.edit::before {clip-path: var(--i_edit)}
+        &.up::before {clip-path: var(--i_up)}
+        &.remove::before {clip-path: var(--i_remove)}
+      }
+
+      #sctNote {
+        font-family: monospace; padding: .4rem; border-radius: .4rem;
+        min-width: 38%; max-width: 100%; margin-bottom: 1rem;
+        &:focus-within {outline: solid 2px var(--c_ac)}
+        & pre {
+          font-family: monospace; white-space: pre-wrap; word-wrap: break-word; line-height: 1.4;
+          max-width: 100%; min-height: 1lh; overflow: hidden; border: none;
+          color: var(--c_fg); background-color: transparent; resize: none;
+          &:not(:focus) {opacity: .8}
+          &:empty::before {content: attr(data-placeholder); opacity: .6}
+        }
+      }
+
+      dialog#dlgLink {
+        all: unset; display: none; position: fixed; inset: 0; border: none; background-color: #0004;
+        &[open] {display: block}
+        & .panel {
+          position: absolute; background-color: var(--c_fd); justify-content: end; gap: .4rem;
+          width: min(28rem, 80vw); padding: .5rem .8rem; border-radius: .5rem; border: none;
+          left: 50%; top: 50%; transform: translate(-50%, -100%);
+          &::before {
+            content: attr(data-type) ' LINK'; display: inline-block; color: var(--c_bg); letter-spacing: 1px;
+            width: 100%; font-weight: 900; transform: scale(1.62,1); transform-origin: left;
+          }
+        }
+        & input[type="text"] {
+          width: 100%; border: none; border-radius: .4rem; color: var(--c_fg); background-color: var(--c_bg);
+          font-size: 1rem; padding: .4rem .8rem;
+        }
+        & .spacer {width: 100%}
+        & button {
+          font-size: 1rem; min-width: 6rem; min-height: 2rem;
+          color: var(--c_fg); background-color: var(--c_bg); border: none;
+          border-radius: .2rem; box-shadow: inset 0 0 1px #fff1 0 1px 3px #0001;
+          &#btnOK {font-weight: 900}
+          &:focus, &:hover {color: var(--c_ac)}
+        }
+      }
+
+      .flex {
+        display: flex; align-items: center; justify-content: center;
+        &.reverse {flex-direction: row-reverse}
+        &.vert {
+          flex-direction: column;
+          &.reverse {flex-direction: column-reverse}
+        }
+        &.wrap {flex-wrap: wrap}
+      }
+    --></style>
+  </head>
+
+  <body>
+    <header class="flex">
+      <div class="flex" style="align-items:stretch;overflow:hidden">
+        <input id="iptUrl" type="text" placeholder="input URL" list="urlRecent" autofocus />
+        <a class="btn url" title="transfer URL" tabindex="0"></a>
+      </div>
+    </header>
+
+    <main class="flex vert" style="justify-content: start">
+      <section id="sctLink">
+        <div>
+          <span class="caption">LINK:</span>
+          <span class="count"></span>
+          <a class="btn new" title="add link" tabindex="-1"></a>
+        </div>
+        <ul id="lstLink" class="flex vert"></ul>
+      </section>
+      <section id="sctNote">
+        <pre id="txtNote" contenteditable="true"></pre>
+      </section>
+    </main>
+
+    <datalist id="urlRecent"></datalist>
+    <input id="iptFile" type="file" multiple tabindex="-1" style="display:none"/>
+
+    <dialog id="dlgLink" class="overlay">
+      <div class="panel flex wrap" data-type="NEW" data-index="0">
+        <input id="iptLinkAddress" type="text" placeholder="URL address" list="urlRecent" />
+        <input id="iptLinkName" type="text" placeholder="link name" name="linkname" />
+        <input id="iptLinkIcon" type="text" placeholder="icon image" name="linkicon" />
+        <span class="spacer"></span>
+        <button id="btnCancel">Cancel</button>
+        <button id="btnOK">OK</button>
+      </div>
+    </dialog>
+
+    <template id="tmpLink">
+      <li data-index="-1">
+        <span class="icon" style="background-image:url('')"></span>
+        <a class="link" href="" title="" target="_self"></a>
+        <a class="btn edit" title="edit link" tabindex="-1"></a>
+        <a class="btn up" title="move up" tabindex="-1"></a>
+        <a class="btn remove" title="remove link" tabindex="-1"></a>
+      </li>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M2.25,1C1.016,1 0,2.016 0,3.25v9.5C0,13.984 1.016,15 2.25,15h11.5C14.984,15 16,13.984 16,12.75V3.25C16,2.016 14.984,1 13.75,1Z M6,2.5h7.75c0.423,0 0.75,0.327 0.75,0.75v9.5c0,0.423 -0.327,0.75 -0.75,0.75H6V12.75L1.256,8.002 6,3.25Z M7.5,3.826 3.365,8.002 7.5,12.175v-2.25h3.25V6.076H7.5Z"/></svg>
+    </template>
+
+    <script type="text/javascript"><!--
+      const D=document, QS=D.querySelector.bind(D), QSA=D.querySelectorAll.bind(D), QI=D.getElementById.bind(D),
+        CE=t=>D.createElement(t||'div'), SA=(e, a, v)=>e.setAttribute(a, v), RA=(e, a)=>e.removeAttribute(a),
+        SP=(e, p, v)=>e.style.setProperty(p, v), GP=(e, p)=>e.style.getPropertyValue(p), RP=(e, p)=>e.style.removeProperty(p),
+        tipJ='## 使い方\n  1. ウェブパネルとしてこのページを表示\n  2. 入力欄に目的のページURLを入力\n  3. フォーカスが外れるとそのページを表示\n\n## このページに戻す\n  "ホームへ移動" ボタン\n\n## リンクを追加\n  "LINK"部分の [+] ボタンで追加\n  使用頻度が低いウェブパネルのまとめに\n  - "URL address"  リンク先のURL\n  - "link name"    リンクの表示名\n  - "icon image"   アイコン画像\n\n## メモ\n  このエリアはメモとして使えます',
+        tipE='## USAGE\n1. display this HTML as a Web Panel\n2. enter the target page URL in the input field\n3. when the focus is removed, the page is displayed\n\n## Return to this page\nPress the "Home" button.\n\n## Add a Link\nAdd a Link by pressing the [+] button in the "LINK" section.\nFor summarizing infrequently used Web Panels.\n- "URL address"   URL of the Link\n- "link name"     display caption of the Link\n- "icon image"    image for Favicon\n\n## Notes\nThis area can be used as Notes.',
+        cKEY=`hk${location.href.replace(/\/([^\/]+?)(\.\w+?)$/, '/-$1').replace(/(\w)[\w:]*\/+/g, '$1')}`;
+      let cNote='', cLink=[], cRecent=[], cRecentMax=0;
+
+      function _WPL(m){if(0||0){QI('txtNote').textContent+=`${m||''}\r\n`}} /////
+
+      function _urlTransfer(url){
+        _WPL(url); ///////////
+        if(/^\s*@\s*export(link)?\b/i.test(url)){return _linkExport()}
+        if(/^\s*@\s*import(link)?\b/i.test(url)){QI('iptFile').value=''; return QI('iptFile').click()}
+        if(!/\b(https?|file):\/{2,}[^\s/$.?#].\S*$/i.test(url)){return}
+        _addRecent(url); window.open(url, '_self');
+      }
+        function _linkExport(){
+          if(!cLink.length){return}
+          let blob=new Blob([cLink.map(d=>d.map(v=>v.replace(/^\s+|\s+$/g, '').replace(/([\\\,\r\n\t])/g, (rr, r)=>['\\\\', '\\,', '\\r', '\\n', '\\t']['\\,\r\n\t'.indexOf(r)])).join(', ')).join(',\r\n')+',\r\n'], {type: 'text/csv'});
+          let dl=D.body.appendChild(CE('a')), uri=URL.createObjectURL(blob);
+          dl.download=`${location.pathname.replace(/^.*?([^\\\.\/]+)(\.\w+?)?$/i, '$1')}_link.csv`;
+          dl.href=uri; dl.click(); D.body.removeChild(dl); URL.revokeObjectURL(uri)
+          return;
+        }
+        function _linkImport(ev){
+          let cnt=cLink.length, len=ev.target.files.length;
+          for(let f of [...ev.target.files]){
+            let fr=new FileReader();
+            fr.onloadend=function(d){
+              let lnk=d.target.result.replace(/\\([\\\,])/g, (rr, r)=>r==','?'\x03':'\x02').split(/\s*\,?[\s\r\n]$/m).filter(v=>v!='').map(v=>v.split(/\s*\,\s*/).map(t=>t.replace(/\x03/g, ',').replace(/\x02/g, '\\')).concat(['', '']).slice(0, 3));
+              if(lnk.length){cLink=cLink.concat(lnk)} if(!(--len) && cLink.length!=cnt){_makeLinkList()} fr=null;
+            }
+            fr.readAsText(f);
+          }
+          return;
+        }
+
+      function _addRecent(url){
+        url=url.replace(/^\s+|\s+$/g, '');
+        cRecent=cRecent.filter(v=>v.toLowerCase()!=url.toLowerCase()); cRecent.unshift(url);
+        localStorage[`${cKEY}_Recent`]=cRecent.slice(0, cRecentMax||16).join('\x02');
+      }
+
+      function _saveLink(){
+        if(!cLink.length){return localStorage.removeItem(`${cKEY}_Link`)}
+        localStorage[`${cKEY}_Link`]=cLink.map(v=>v.join('\x03')).join('\x02');
+      }
+
+      function _makeLinkList(){
+        let ul=QI('lstLink'); _saveLink();
+        QS('#sctLink div .count').textContent=cLink.length;
+        while(ul.firstChild){ul.removeChild(ul.firstChild)}
+        for(let [i, l] of cLink.entries()){
+          let li=ul.appendChild(QI('tmpLink').content.children[0].cloneNode(true)), lc=l[1],
+            ev=[_btnEdit, _btnMoveUp, _btnRemove];
+          li.dataset.index=i; li.children[1].title=li.children[1].href=l[0];
+          if(/\s*\-{3,}[\s\-]*$/.test(lc)){lc=lc.replace(/[\s\-]+$/, ''); ul.appendChild(CE('hr'))}
+          if(/^\s*\-{3,}[\s\-]*/.test(lc)){lc=lc.replace(/^[\s\-]+/, ''); ul.insertBefore(CE('hr'), li)}
+          li.children[1].textContent=lc||l[0].replace(/^(https?|file):\/+/i, '');
+          if(l[2]){
+            SP(li.children[0], 'background-image', `url('${l[2]}')`);
+          }else{
+            li.replaceChild(QI('tmpLink').content.children[1].cloneNode(true), li.children[0]);
+          }
+          for(let e of [...li.children].slice(2)){e.addEventListener('click', ev.shift())}
+        }
+      }
+        function _btnEdit(ev){
+          _editLink(typeof(ev)==='number' ? ev : (ev.currentTarget.parentNode.dataset.index||0)-0);
+        }
+        function _btnMoveUp(ev){
+          let idx=typeof(ev)==='number' ? ev : (ev.currentTarget.parentNode.dataset.index||0)-0;
+          if(idx<1){return}[cLink[idx], cLink[idx-1]]=[cLink[idx-1], cLink[idx]]; _makeLinkList();
+        }
+        function _btnRemove(ev){
+          let idx=typeof(ev)==='number' ? ev : (ev.currentTarget.parentNode.dataset.index||0)-0;
+          if(idx<0 || idx>=cLink.length){return}
+          cLink.splice(idx, 1); _makeLinkList();
+        }
+
+      function _editLink(idx){
+        let p=QS('#dlgLink .panel');
+        idx=(idx||0)-0; p.dataset.index=idx;
+        p.dataset.type=idx<0 ? 'NEW' : 'EDIT';
+        for(let [i, t] of [...QSA('#dlgLink input[type="text"]')].entries()){t.value=(idx<0 || idx>=cLink.length) ? '' : cLink[idx][i]||''}
+        QI('dlgLink').returnValue=''; QI('dlgLink').showModal();
+      }
+
+      function _setLink(idx){
+        if(idx===''){return}
+        let lnk=[QI('iptLinkAddress').value, QI('iptLinkName').value, QI('iptLinkIcon').value].map(v=>v.replace(/^[\s\x22\x27]+|[\s\x22\x27]+$/g, ''));
+        // console.log(idx, lnk); //////////
+        if(!/^(https?|file):\/+[^\s/$.?#].\S*$/i.test(lnk[0])){return}
+        if(/^[a-z]:[\\\/].+?\.\w+$/i.test(lnk[2])){lnk[2]='file:///'+lnk[2].replaceAll('\\', '/')}
+        if(!/^(https?:|file:|data:image)\/+[^\s/$.?#].\S*$/i.test(lnk[2])){lnk[2]=''}
+        if(idx<0){cLink.push(lnk)}else if(cLink[idx].reduce((r, v, i)=>r|=(v!=lnk[i]?1:0), 0)){cLink[idx]=lnk}else{return}
+        _makeLinkList();
+      }
+
+      function _urlComp(ev){
+        let t=ev.currentTarget.value, dl=QI('urlRecent'); dl.innerHTML='';
+        for(let v of cRecent){if(v.toLowerCase().indexOf(t.toLowerCase())>=0){dl.appendChild(CE('option')).value=v}}
+      }
+
+
+      window.addEventListener('DOMContentLoaded', ev=>{
+        for(let e of [...QSA('input[type="text"]')]){
+          e.addEventListener('focus', ev=>{ev.currentTarget.setSelectionRange(0, -1)});
+          e.title=e.placeholder||'';
+        }
+        QI('iptUrl').addEventListener('change', ev=>{_urlTransfer(ev.currentTarget.value)});
+        QI('iptUrl').addEventListener('input', _urlComp);
+        QI('iptLinkAddress').addEventListener('input', _urlComp);
+        QS('a.btn.url').addEventListener('click', ev=>{_urlTransfer(QI('iptUrl').value)});
+        QI('iptFile').addEventListener('change', _linkImport);
+        cRecentMax=parseInt(D.documentElement.dataset?.recent)||16;
+
+        QS('a.btn.new').addEventListener('click', ev=>{_editLink(-1)});
+        QI('dlgLink').addEventListener('click', ev=>{if(ev.target===ev.currentTarget){ev.target.close()}});
+        QI('dlgLink').addEventListener('close', ev=>{_setLink(ev.currentTarget.returnValue)});
+        QI('btnCancel').addEventListener('click', ev=>QI('dlgLink').close());
+        QI('btnOK').addEventListener('click', ev=>{QI('dlgLink').close(QS('#dlgLink .panel').dataset.index)});
+        for(let e of [...QSA('#dlgLink input[type="text"]')]){e.addEventListener('keyup', ev=>{if(ev.key==='Enter'){QI('btnOK').click()}})}
+
+        let ph=/\bja\b/i.test(navigator.language||navigator.userLanguage||navigator.browserLanguage) ? tipJ : tipE;
+
+        QI('txtNote').dataset.placeholder=ph;
+        QI('txtNote').innerText=(cNote=(localStorage[`${cKEY}_Note`]||'').replace(/\x02/g, '\n'));
+        QI('txtNote').addEventListener('blur', ev=>{
+          let t=ev.currentTarget.innerText.replace(/[\r\n]+$/, ''); ev.currentTarget.innerText=t;
+          if(t!=cNote){localStorage[`${cKEY}_Note`]=(cNote=t).replace(/[\r\n]/g, '\x02')}
+        });
+
+        // cRecent=(localStorage[`${cKEY}_Recent`]||'').split(/\x02+/).filter(s=>s).slice(0, cRecentMax).concat(['@Import', '@Export']);
+        cRecent=(localStorage[`${cKEY}_Recent`]||'').split(/\x02+/).filter(s=>s).slice(0, cRecentMax);
+        for(let v of cRecent){QI('urlRecent').appendChild(CE('option')).value=v}
+        cLink=(localStorage[`${cKEY}_Link`]||'').split(/\x02+/).filter(s=>s).map(v=>v.split(/\x03/));
+
+        _makeLinkList();
+      }, {once:true});
+    --></script>
+  </body>
+</html>
+
