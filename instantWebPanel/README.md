@@ -4,6 +4,8 @@
 [![CC0 1.0Universal](https://img.shields.io/static/v1?label=license&message=CC0&color=28c)](https://creativecommons.org/publicdomain/zero/1.0/ "CC0 1.0Universal")&nbsp;
 ![version 2.21](https://img.shields.io/static/v1?label=version&message=2.21&color=2a2 "version: 2.21")&nbsp;
 <br/>
+> 🍙 This README is written in Japanese only.  Please use a translation tool if needed.  
+
 ウェブページを一時的にWebパネルに表示するためのHTMLファイルです  
 ローカルのHTMLファイルをWebパネルとして登録し、一時表示用の容れ物として使うような感じです  
 
