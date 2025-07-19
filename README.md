@@ -6,8 +6,8 @@
 <br/> -->
 > 🍙 This README is written in Japanese only.  Please use a translation tool if needed.  
 
-これは個人的に作った[Vivaldiブラウザ][vivaldi]用のモノをまとめたリポジトリです。
-ご意見・ご感想・不具合報告などございましたら [Issue](https://github.com/hongkong3/sakura-macros/issues) へどうぞ🤓  
+これは個人的に作った[Vivaldiブラウザ][vivaldi]用のモノをまとめたリポジトリです。  
+ご意見・ご感想・不具合報告などございましたら [Issue](https://github.com/hongkong3/Vivaldi-garbage/issues) へどうぞ🤓  
 <br/>
 
 [vivaldi]: https://vivaldi.com/ "Powerful. Personal. Private."
