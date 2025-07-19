@@ -9,7 +9,7 @@
 ウェブページを一時的にWebパネルに表示するためのHTMLファイルです  
 ローカルのHTMLファイルをWebパネルとして登録し、一時表示用の容れ物として使うような感じです  
 
-Zipファイルは [instantWenPanel_v221.zip](https://github.com/hongkong3/MyStorage-vivaldi/releases/download/iwp-v2.21/instantWebPanel_v221.zip) です  
+Zipファイルは [instantWenPanel_v221.zip](https://github.com/hongkong3/MyStorage-vivaldi/raw/master/.releases/instantWebPanel_v221.zip) です  
 <br/>
 
 ## 使い方
