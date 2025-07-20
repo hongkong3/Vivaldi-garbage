@@ -39,8 +39,14 @@ Zipファイルは [instantWenPanel_v221.zip](https://github.com/hongkong3/MySto
 ## メモ
   ページ下部はメモとして使えます  
 <br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 
-- - - - - - - -
 > このソフトウェアはCC0 1.0 (パブリックドメイン宣言) で公開されています。  
 > 自由にご利用いただけますが無保証です。  
 > 詳細は https://creativecommons.org/publicdomain/zero/1.0/ をご覧ください。  
