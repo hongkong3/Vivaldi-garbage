@@ -21,4 +21,13 @@
 <br/>
 ウェブページを一時的にWebパネルに表示するためのHTMLファイルです  
 ローカルのHTMLファイルをWebパネルとして登録し、一時表示用の容れ物として使うような感じです  
+<br/>
 
+### ■ [メモパネル-マークダウン用 - カスタムCSS](/markdownNotes)
+[![REQUIRE: Vivaldi](https://img.shields.io/static/v1?label=vivaldi&message=6.4?&color=ef3939&logo=vivaldi)][vivaldi]&nbsp;
+[![CC0 1.0Universal](https://img.shields.io/static/v1?label=license&message=CC0&color=28c)](https://creativecommons.org/publicdomain/zero/1.0/ "CC0 1.0Universal")&nbsp;
+![version 3.04](https://img.shields.io/static/v1?label=version&message=3.04&color=2a2 "version: 3.04")&nbsp;
+[css_markdownNotes_v304.zip](/../../raw/master/.releases/css_markdownNotes_v304.zip)
+<br/>
+Vivaldiブラウザのメモパネル機能を、**Markdownメモ** として使い倒そうというカスタムCSSです  
+<br/>
