@@ -1,0 +1,311 @@
+﻿@charset "utf-8";
+/*****************************************************
+> This file contains animation-related classes used alongside the "markdownNotes.css".
+> Include this file to enable visual effects such as blinking, moving effects, etc.
+
+
+### Animation Classes
+  Use base effect classes like `loud`, `buzz`, `dazz`, `bling`, `flash`, `vivid` or `attention`,
+  combination with the following animation classes to apply animated effects.
+
+  > Note: Multiple class names are separated by commas (,).
+  > Slashes (/) indicate alternative names or spelling variants for the same animation.
+
+  - Main Animation Categories:
+    | Category   | Class names                                                              |
+    |------------|--------------------------------------------------------------------------|
+    | Motion     | `circle`, `vortex`, `tempo`, `mop`, `knead`, `cutoff`/`stop`/`no`, `bee` |
+    | Translate  | `side`/`slide`, `lift`/`updown`, `near`, `square`, `star`                |
+    | Rotate     | `flap`, `door`, `clock`, `swing`/`seesaw`                                |
+    | Scale      | `zoom`, `gum`/`gummy`, `spring`/`jump`, `beat`, `jerry`, `back`          |
+    | Clipping   | `hole`, `stripe`, `curtains`, `slit`, `tunnel`                           |
+    | Color      | `holo`/`aura`/`glow`, `rainbow`/`spectrum`                               |
+    | Visibility | `ghost`, `blink`                                                         |
+
+  - Options Modifiers:
+    | Category  | Class names                                               |
+    |-----------|-----------------------------------------------------------|
+    | Speed     | `fast`, `slow`                                            |
+    | Direction | `reverse`/`rev`                                           |
+    | Timing    | `linear`/`flat`, `ease`/`flow`/`inertia`, `steps`/`strobe`|
+
+  - Animation Stop Switch:
+    If a checkbox like the following exists within the same block or paragraph,
+    the animation will only run when the checkbox is checked.
+        e.g. `<input type="checbox" class="chk_anime" />`
+    If no checkbox is present, the animation will run continuously.
+
+  Animations from different background color groups can be applied simultaneously.
+  Also, animations can be layered as shown below:
+      e.g. `<u class="dazz clock"><u class="buzz door b-ble">clock🐠door</u></u>`
+
+
+
+## LICENSE
+> Creative Commons Zero v1.0 Universal
+> This work has been dedicated to the public domain under the Creative Commons CC0 1.0 Universal license.
+> To view a copy of this license, visit
+> http://creativecommons.org/publicdomain/zero/1.0/
+*****************************************************/
+
+
+#app:not(.note) .NotesEditor .MarkdownRender {
+  & *:has(> input.chk_anime:not(:checked)) :is(.loud, .buzz, .dazz, .bling, .flash, .vivid, .attention) {
+    animation-duration: 0s !important; animation-delay: 0s !important;
+  }
+  & > div *:has(> :is(.loud, .buzz, .dazz, .bling, .flash, .vivid, .attention):is(.near, .flap, .door)) {
+    perspective: 12cm;
+    &:is(span, label, i, b, q, s, u, tt, em, strong, a, abbr, del, ruby, sub, sup, kbd, mark) {display: inline-block}
+  }
+  & > div :is(.loud, .buzz, .dazz, .bling, .flash, .vivid, .attention) {
+    &:where(i, b, q, s, u, tt, span, em, strong, a, abbr, del, ruby, sub, sup, kbd, mark) {display: inline-block}
+    position: relative; transform-style: preserve-3d;
+
+    --tmpNoteAtm: 1.2s;
+    &.slow {--tmpNoteAtm: 2.8s}
+    &.fast {--tmpNoteAtm: .5s}
+    &:is(.linear, .flat) {--tmpNoteAtf: linear}
+    &:is(.ease, .flow, .wavy, .inertia) {--tmpNoteAtf: ease-in-out}
+    &:is(.step, .steps, .strobe) {--tmpNoteAtf: steps(5, start)}
+    --tmpNoteAdr: normal;
+    &:is(.reverse, .rev) {--tmpNoteAdr: reverse}
+
+    animation: var(--tmpNoteAk6, none), var(--tmpNoteAk5, none), var(--tmpNoteAk4, none), var(--tmpNoteAk3, none), var(--tmpNoteAk2, none), var(--tmpNoteAk1, none), var(--tmpNoteAk0, none);
+
+    /* &.test {--tmpNoteAk1: TEST calc(var(--tmpNoteAtm) * 4.0) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)} */
+
+    &.hole {--tmpNoteAk1: HOLE calc(var(--tmpNoteAtm) * 5.3) var(--tmpNoteAtf, ease-in-out) infinite var(--tmpNoteAdr)}
+    &.stripe {--tmpNoteAk1: STRIPE calc(var(--tmpNoteAtm) * 1.3) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &.run {--tmpNoteAk1: RUN calc(var(--tmpNoteAtm) * 4.6) var(--tmpNoteAtf, ease-in-out) infinite var(--tmpNoteAdr)}
+    &:is(.curtain, .curtains) {--tmpNoteAk1: CURTAIN calc(var(--tmpNoteAtm) * 4.6) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &.slit {--tmpNoteAk1: SLIT calc(var(--tmpNoteAtm) * 3.9) var(--tmpNoteAtf, ease-in-out) infinite alternate}
+    &.slash {--tmpNoteAk1: SLASH calc(var(--tmpNoteAtm) * 3.2) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &:is(.tunnel, .tunel, .tonnel, .tonel) {--tmpNoteAk1: TUNNEL calc(var(--tmpNoteAtm) * 5.4) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+
+    &.circle {--tmpNoteAk2: CIRCLE calc(var(--tmpNoteAtm) * 3.4) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &.vortex {--tmpNoteAk2: VORTEX calc(var(--tmpNoteAtm) * 9.3) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &.tempo {transform-origin: 50% 100%; --tmpNoteAk2: TEMPO calc(var(--tmpNoteAtm) * 1.1) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &.mop {--tmpNoteAk2: MOP calc(var(--tmpNoteAtm) * 1.4) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &.knead {--tmpNoteAk2: KNEAD calc(var(--tmpNoteAtm) * 4.5) var(--tmpNoteAtf, ease-in-out) infinite var(--tmpNoteAdr)}
+    &:is(.cutoff, .no, .stop) {--tmpNoteAk2: STOP calc(var(--tmpNoteAtm) * 5.1) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &.bee {--tmpNoteAk2: BEE calc(var(--tmpNoteAtm) * 4.2) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+
+    &.zoom {--tmpNoteAk5: SCALE calc(var(--tmpNoteAtm) * 1.3) var(--tmpNoteAtf, ease-in-out) infinite alternate}
+    &:is(.gum, gummy, .gom, .goma, .gomm, .gomme) {--tmpNoteAk5: SCALE-XY calc(var(--tmpNoteAtm) * .9) var(--tmpNoteAtf, ease-in-out) infinite alternate}
+    &:is(.spring, .jump) {transform-origin: 50% 100%; --tmpNoteAk5: SPRING calc(var(--tmpNoteAtm) * 3.0) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &.beat {--tmpNoteAk5: BEAT calc(var(--tmpNoteAtm) * 1.6) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &.jerry {--tmpNoteAk5: JERRY calc(var(--tmpNoteAtm) * 1.2) var(--tmpNoteAtf, ease-in-out) infinite var(--tmpNoteAdr)}
+    &.back {--tmpNoteAk5: BACK calc(var(--tmpNoteAtm) * 4.0) var(--tmpNoteAtf, ease-in-out) infinite var(--tmpNoteAdr)}
+
+    &:is(.side, .slide) {--tmpNoteAk4: TRANSLATE-X calc(var(--tmpNoteAtm) * 2.2) var(--tmpNoteAtf, ease-in-out) infinite alternate}
+    &:is(.lift, .updown) {--tmpNoteAk4: TRANSLATE-Y calc(var(--tmpNoteAtm) * 3.8) var(--tmpNoteAtf, ease-in-out) infinite alternate}
+    &.near {--tmpNoteAk4: TRANSLATE-Z calc(var(--tmpNoteAtm) * 2.8) var(--tmpNoteAtf, ease-in-out) infinite var(--tmpNoteAdr)}
+    &.square {--tmpNoteAk4: SQUARE calc(var(--tmpNoteAtm) * 3.5) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &.star {--tmpNoteAk4: STAR calc(var(--tmpNoteAtm) * 5.2) var(--tmpNoteAtf, ease-out) infinite var(--tmpNoteAdr)}
+
+    &.flap {--tmpNoteAk3: ROTATE-X calc(var(--tmpNoteAtm) * 3.5) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &.door {--tmpNoteAk3: ROTATE-Y calc(var(--tmpNoteAtm) * 2.0) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &.clock {--tmpNoteAk3: ROTATE-Z calc(var(--tmpNoteAtm) * 4.8) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &:is(.swing, .seesaw) {transform-origin: 50% 100%; --tmpNoteAk3: SWING calc(var(--tmpNoteAtm) * 1.3) var(--tmpNoteAtf, ease-in-out) infinite alternate}
+
+    &:is(.rainbow, .spectrum) {
+      background-image: linear-gradient(172deg, violet, red, orange, yellow, green, blue, indigo);
+      color: hsl(from currentColor h s l / .2); background-clip: text; -webkit-background-clip: text;
+      --tmpNoteAk0: RAINBOW calc(var(--tmpNoteAtm) * 1.6) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr);
+    }
+    &:is(.holo, .aura, .glow) {
+      --tmpNoteAk0: HOLO calc(var(--tmpNoteAtm) * 2.5) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr);
+      --tmpNoteAfDS0: drop-shadow(0 0 0px #eff2) drop-shadow(4px 0 4px #64f8) drop-shadow(0 -3px 4.4px #8f88) drop-shadow(-4px 0 8px #fcc8) drop-shadow(0 3px 3.5px #ffc8);
+      --tmpNoteAfDS1: drop-shadow(0 0 2.7px #eff2) drop-shadow(4px 0 6px #b8f8) drop-shadow(0 -3px 6px #cf88) drop-shadow(-4px 0 5px #f668) drop-shadow(0 3px 1px #ff68);
+      --tmpNoteAfDS2: drop-shadow(0 0 5.5px #eff2) drop-shadow(4px 0 8px #ecf8) drop-shadow(0 -3px 3.5px #6f68) drop-shadow(-4px 0 2px #f008) drop-shadow(0 3px 2.7px #ff08);
+      --tmpNoteAfDS3: drop-shadow(0 0 8px #eff2) drop-shadow(4px 0 5px #86f8) drop-shadow(0 -3px 1px #0f08) drop-shadow(-4px 0 4px #f448) drop-shadow(0 3px 4.4px #ff48);
+      --tmpNoteAfDS4: drop-shadow(0 0 4px #eff2) drop-shadow(4px 0 2px #20f8) drop-shadow(0 -3px 2.7px #4f48) drop-shadow(-4px 0 6px #f888) drop-shadow(0 3px 6px #ff88);
+      html:has(.chk_color:checked) &, body:has(#browser.bg-light) & {
+        --tmpNoteAfDS0: drop-shadow(0 0 0px #eff4) drop-shadow(4px 0 6px #64fd) drop-shadow(0 -3px 6.6px #8f8d) drop-shadow(-4px 0 12px #fccd) drop-shadow(0 3px 5.3px #ffcd);
+        --tmpNoteAfDS1: drop-shadow(0 0 2.7px #eff4) drop-shadow(4px 0 9px #b8fd) drop-shadow(0 -3px 9px #cf8d) drop-shadow(-4px 0 7.5px #f66d) drop-shadow(0 3px 1.5px #ff6d);
+        --tmpNoteAfDS2: drop-shadow(0 0 5.5px #eff4) drop-shadow(4px 0 12px #ecfd) drop-shadow(0 -3px 5.3px #6f6d) drop-shadow(-4px 0 3px #f00d) drop-shadow(0 3px 4.6px #ff0d);
+        --tmpNoteAfDS3: drop-shadow(0 0 8px #eff4) drop-shadow(4px 0 7.5px #86fd) drop-shadow(0 -3px 1.5px #0f0d) drop-shadow(-4px 0 6px #f44d) drop-shadow(0 3px 6.6px #ff4d);
+        --tmpNoteAfDS4: drop-shadow(0 0 4px #eff4) drop-shadow(4px 0 3px #20fd) drop-shadow(0 -3px 4.6px #4f4d) drop-shadow(-4px 0 9px #f88d) drop-shadow(0 3px 9px #ff8d);
+      }
+    }
+
+    &.blink {--tmpNoteAk6: BLINK calc(var(--tmpNoteAtm) * 1.8) var(--tmpNoteAtf, linear) infinite var(--tmpNoteAdr)}
+    &.ghost {--tmpNoteAk6: GHOST calc(var(--tmpNoteAtm) * 3.2) var(--tmpNoteAtf, ease-in-out) infinite var(--tmpNoteAdr)}
+  }
+}
+
+@keyframes TEST {
+  0% {clip-path: polygon(-50%-50%,-50%150%,-40%150%,-40%-50%, -24%-50%,-24%150%,-14%150%,-14%-50%, 2%-50%,2%150%,12%150%,12%-50%, 28%-50%,28%150%,38%150%,38%-50%, 54%-50%,54%150%,64%150%,64%-50%, 80%-50%,80%150%,90%150%,90%-50%, 106%-50%,106%150%,116%150%,116%-50%, 132%-50%,132%150%,142%150%,142%-50%)}
+  100% {clip-path: polygon(-24%-50%,-24%150%,-14%150%,-14%-50%, 2%-50%,2%150%,12%150%,12%-50%, 28%-50%,28%150%,38%150%,38%-50%, 54%-50%,54%150%,64%150%,64%-50%, 80%-50%,80%150%,90%150%,90%-50%, 106%-50%,106%150%,116%150%,116%-50%, 132%-50%,132%150%,142%150%,142%-50%, 158%-50%,158%150%,168%150%,168%-50%)}
+}
+
+@keyframes STRIPE {
+  0% {clip-path: polygon(-50%-50%,-50%150%,-40%150%,-40%-50%, -24%-50%,-24%150%,-14%150%,-14%-50%, 2%-50%,2%150%,12%150%,12%-50%, 28%-50%,28%150%,38%150%,38%-50%, 54%-50%,54%150%,64%150%,64%-50%, 80%-50%,80%150%,90%150%,90%-50%, 106%-50%,106%150%,116%150%,116%-50%, 132%-50%,132%150%,142%150%,142%-50%)}
+  100% {clip-path: polygon(-24%-50%,-24%150%,-14%150%,-14%-50%, 2%-50%,2%150%,12%150%,12%-50%, 28%-50%,28%150%,38%150%,38%-50%, 54%-50%,54%150%,64%150%,64%-50%, 80%-50%,80%150%,90%150%,90%-50%, 106%-50%,106%150%,116%150%,116%-50%, 132%-50%,132%150%,142%150%,142%-50%, 158%-50%,158%150%,168%150%,168%-50%)}
+}
+@keyframes SLASH {
+  0% {clip-path: polygon(-50%51%,-50%51%,50%50%,50%50%, 50%50%,50%50%,150%49%,150%49%)}
+  3% {clip-path: polygon(-50%49%,-50%53%,50%52%,50%48%, 50%48%,50%52%,150%51%,150%47%)}
+  25% {clip-path: polygon(-50%49%,-50%53%,50%52%,50%48%, 50%48%,50%52%,150%51%,150%47%)}
+  45% {clip-path: polygon(-50%-50%,-50%152%,40%151%,60%-51%, 60%-51%,40%151%,150%150%,150%-52%)}
+  55% {clip-path: polygon(-50%-50%,-50%152%,40%151%,60%-51%, 60%-51%,40%151%,150%150%,150%-52%)}
+  58% {clip-path: polygon(-50%-50%,-50%152%,39%151%,59%-51%, 61%-51%,41%151%,150%150%,150%-52%)}
+  80% {clip-path: polygon(-50%-50%,-50%152%,39%151%,59%-51%, 61%-51%,41%151%,150%150%,150%-52%)}
+  100% {clip-path: polygon(-50%-50%,-50%152%,-70%151%,-50%-51%, 170%-51%,150%151%,150%150%,150%-52%)}
+}
+@keyframes RUN {
+  0%, 100% {clip-path: polygon(-60%-50%,-80%150%,-70%150%,-50%-50%, 160%-50%,150%150%,160%150%,170%-50%)}
+  50% {clip-path: polygon(160%-50%,150%150%,160%150%,170%-50%, -60%-50%,-80%150%,-70%150%,-50%-50%)}
+}
+@keyframes HOLE {
+  0%, 10%, 100% {clip-path: circle(0% at 50% 50%)}
+  60%, 70% {clip-path: circle(150% at 50% 50%)}
+}
+@keyframes SLIT {
+  0% {clip-path: polygon(-75%-50%,-75%150%,-50%150%,-50%-50%)}
+  100% {clip-path: polygon(150%-50%,150%150%,175%150%,175%-50%)}
+}
+@keyframes CURTAIN {
+  0% {clip-path: polygon(50%-50%,50%150%,50%150%,50%-50%, 50%-50%,50%150%,50%150%,50%-50%)}
+  50% {clip-path: polygon(-50%-50%,-50%150%,50%150%,50%-50%, 50%-50%,50%150%,150%150%,150%-50%)}
+  100% {clip-path: polygon(-50%-50%,-50%150%,-50%150%,-50%-50%, 150%-50%,150%150%,150%150%,150%-50%)}
+}
+@keyframes TUNNEL {
+  0% {clip-path: polygon(50%62%,50%62%,50%62%,50%62%,50%62%, 50%62%,50%62%,50%62%,50%62%, 50%62%)}
+  50% {clip-path: polygon(50%62%,50%62%,50%62%,50%62%,50%62%, -50%-50%,150%-50%,150%150%,-50%150%, -50%-50%)}
+  100% {clip-path: polygon(-50%-50%,-50%150%,150%150%,150%-50%,-50%-50%, -50%-50%,150%-50%,150%150%,-50%150%, -50%-50%)}
+}
+
+@keyframes KNEAD {
+  0%, 50%, 100% {transform: rotate(-120deg) scale(1, 1) rotate(120deg)}
+  30% {transform: rotate(-120deg) scale(.6, 1.4) rotate(120deg)}
+  80% {transform: rotate(-120deg) scale(1.4, .6) rotate(120deg)}
+}
+@keyframes VORTEX {
+  0% {transform: rotate(0deg) translate(0, 2.8em)}
+  50% {transform: rotate(-1260deg) translate(0, 0.0em)}
+  100% {transform: rotate(-2520deg) translate(0, 2.8em)}
+}
+@keyframes STOP {
+  0%, 100% {transform: rotate(0deg) translate(2em, 2em) rotate(0deg)}
+  35% {transform: rotate(-180deg) translate(2em, 2em) rotate(180deg)}
+  50% {transform: rotate(-180deg) translate(-2em, -2em) rotate(180deg)}
+  85% {transform: rotate(0deg) translate(-2em, -2em) rotate(0deg)}
+}
+@keyframes BEE {
+  0%, 100% {transform: translate(2em, -2em) rotate(0deg) translate(0%, 2em)}
+  20% {transform: translate(-2em, 2em) rotate(0deg) translate(0, -2em)}
+  50% {transform: translate(-2em, 2em) rotate(-270deg) translate(0, -2em)}
+  70% {transform: translate(2em, -2em) rotate(-270deg) translate(0, 2em)}
+}
+@keyframes CIRCLE {
+  0% {transform: rotate(0deg) translate(0, -3em) rotate(0deg)}
+  100% {transform: rotate(360deg) translate(0, -3em) rotate(-360deg)}
+}
+@keyframes TEMPO {
+  0%, 100% {transform: skew(-30deg)}
+  50% {transform: skew(30deg)}
+}
+@keyframes MOP {
+  0%, 100% {transform: translate(-32%, 0) skew(-36deg)}
+  50% {transform: translate(32%, 0) skew(36deg)}
+}
+
+@keyframes SCALE {
+  0% {scale: .8}
+  100% {scale: 1.8}
+}
+@keyframes SCALE-XY {
+  0% {scale: .8 1.3}
+  100% {scale: 1.3 .8}
+}
+@keyframes SPRING {
+  0%, 100% {scale: 1.05 .4}
+  4% {scale: .9 2.2}
+  15% {scale: 1 .75}
+  25% {scale: 1 1.4}
+  35% {scale: 1 .9}
+  45% {scale: 1 1.1}
+}
+@keyframes BEAT {
+  0%, 100 {scale: 1 .9}
+  5% {scale: 1.5 1.8}
+}
+@keyframes JERRY {
+  0%, 74%, 100% {scale: 1.0 1.0}
+  22% {scale: 0.9 1.1}
+  40% {scale: 1.1 0.9}
+  58% {scale: 0.95 1.05}
+}
+@keyframes BACK {
+  0%, 100% {scale: -.8 1.4}
+  50% {scale: 1.2 -0.9}
+}
+
+@keyframes TRANSLATE-X {
+  0% {translate: -100%}
+  100% {translate: 100%}
+}
+@keyframes TRANSLATE-Y {
+  0%, 100% {translate: 0 -100%}
+  50% {translate: 0 100%}
+}
+@keyframes TRANSLATE-Z {
+  0%, 70%, 100% {translate: 0 0 0}
+  80% {translate: 0 0 5cm}
+}
+@keyframes SQUARE {
+  0%, 100% {translate: 0 -2.4em}
+  25% {translate: 2.4em 0}
+  50% {translate: 0 2.4em}
+  75% {translate: -2.4em 0}
+}
+@keyframes STAR {
+  0%, 100% {translate: 0 -2.99em}
+  20% {translate: -1.82em 2.5em}
+  40% {translate: 2.94em -.955em}
+  60% {translate: -2.94em -.955em}
+  80% {translate: 1.82em 2.5em}
+}
+
+@keyframes SWING {
+  0% {rotate: -15deg}
+  100% {rotate: 15deg}
+}
+@keyframes ROTATE-X {
+  0%, 40%, 100% {rotate: x 0deg}
+  50%, 90% {rotate: x 180deg}
+}
+@keyframes ROTATE-Y {
+  0% {rotate: y 0deg}
+  100% {rotate: y 360deg}
+}
+@keyframes ROTATE-Z {
+  0% {rotate: z 0deg}
+  100% {rotate: z 360deg}
+}
+
+@keyframes RAINBOW {
+  0% {filter: hue-rotate(0deg)}
+  100% {filter: hue-rotate(360deg)}
+}
+@keyframes HOLO {
+  0%, 100% {filter: var(--tmpNoteAfDS0)}
+  20% {filter: var(--tmpNoteAfDS1)}
+  40% {filter: var(--tmpNoteAfDS2)}
+  60% {filter: var(--tmpNoteAfDS3)}
+  80% {filter: var(--tmpNoteAfDS4)}
+}
+
+@keyframes GHOST {
+  0%, 80%, 100% {opacity: 0}
+  40% {opacity: .8}
+}
+@keyframes BLINK {
+  0%, 100% {opacity: 1; text-shadow: 0 0 3px currentColor}
+  20% {opacity: 1; text-shadow: 0 0 0px currentColor}
+  49% {opacity: 1}
+  50% {opacity: .05}
+  99% {opacity: .01; text-shadow: 0 0 0px currentColor}
+}
+
